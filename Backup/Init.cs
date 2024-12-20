@@ -10,7 +10,7 @@ namespace Backup
     public class Init
     {
 
-        List<string> dbNames;
+        List<string>? dbNames;
         bool moreThanOne = false;
 
         private readonly IConfiguration configuration;
@@ -50,7 +50,7 @@ namespace Backup
             int response = 0;
 
             Console.WriteLine("Current Databases Available : ");
-            for (int i = 0; i < dbNames.Count; i++)
+            for (int i = 0; i < dbNames?.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {dbNames[i]}");
             }
@@ -63,7 +63,7 @@ namespace Backup
 
                     response = int.Parse(Console.ReadLine());
 
-                    if (response <= dbNames.Count)
+                    if (response <= dbNames?.Count)
                     {
                         break;
                     }

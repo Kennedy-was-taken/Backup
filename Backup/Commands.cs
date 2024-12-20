@@ -9,9 +9,9 @@ namespace Backup
     public class Commands
     {
 
-        public void Director(string command)
+        public static void Director(string command)
         {
-            if (command.ToLower() == "--help")
+            if (command.Equals("--help"))
             {
                 Help();
             }
@@ -23,7 +23,7 @@ namespace Backup
 
         }
 
-        private void Help()
+        private static void Help()
         {
             Console.WriteLine("Backup : to begin the program");
             Console.WriteLine("Backup <n> : if you already know the sequence number of your database, enter that value");

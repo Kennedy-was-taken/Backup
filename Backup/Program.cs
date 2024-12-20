@@ -7,9 +7,13 @@ namespace Backup
     public class Program
     {
 
-        public static void Main(string[] args)
+        protected Program()
         {
-            Commands commands = new();
+            
+        }
+
+        public static void Main(string[] args, Commands commands)
+        {
             var builder = new ConfigurationBuilder();
 
             //sets the path
@@ -27,13 +31,13 @@ namespace Backup
             if (args.Length == 0)
             {
                 Console.WriteLine("Please pass an argument");
+                Init i = new Init(configuration);
+                i.begin();
                 return;
-                //Init i = new Init(configuration);
-                //i.begin();
             }
 
             string argument = args[0];
-            commands.Director(argument);
+            Commands.Director(argument);
             
         }
 
