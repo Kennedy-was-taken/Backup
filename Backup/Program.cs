@@ -12,7 +12,7 @@ namespace Backup
             
         }
 
-        public static void Main(string[] args, Commands commands)
+        public static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder();
 
