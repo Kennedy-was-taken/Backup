@@ -33,11 +33,15 @@ namespace Backup
                 Console.WriteLine("Please pass an argument");
                 Init i = new Init(configuration);
                 i.begin();
-                return;
+                //return;
             }
 
-            string argument = args[0];
-            Commands.Director(argument);
+            else
+            {
+                string argument = args[0];
+                Commands.Director(argument);
+            }
+
             
         }
 

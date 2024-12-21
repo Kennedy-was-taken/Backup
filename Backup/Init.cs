@@ -24,7 +24,7 @@ namespace Backup
         {
             PopulateDatabaseList(configuration);
 
-            //DisplayDatabases();
+            DisplayDatabases();
         }
 
         private void PopulateDatabaseList(IConfiguration configuration)

@@ -8,6 +8,10 @@ namespace Backup
 {
     public class Commands
     {
+        protected Commands()
+        {
+            
+        }
 
         public static void Director(string command)
         {
