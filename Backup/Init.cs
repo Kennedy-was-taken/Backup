@@ -22,12 +22,12 @@ namespace Backup
 
         public void begin()
         {
-            PopulateDatabaseList(configuration);
+            PopulateDatabaseList();
 
             DisplayDatabases();
         }
 
-        private void PopulateDatabaseList(IConfiguration configuration)
+        public void PopulateDatabaseList()
         {
             dbNames = new List<string>();
             var Databases = configuration.GetSection("Databases");
@@ -43,6 +43,35 @@ namespace Backup
                 moreThanOne = true;
             }
 
+        }
+
+        public void selectedDatabase(int selectedValue)
+        {
+            try
+            {
+                if (moreThanOne)
+                {
+                    if (dbNames?[selectedValue - 1] == "Backup All")
+                    {
+                        Console.WriteLine("Backing up all databases");
+                    }
+
+                    else
+                    {
+                        Console.WriteLine($"Backing up {dbNames?[selectedValue - 1].ToString()}");
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine($"Backing up {dbNames?[selectedValue - 1].ToString()}");
+                }
+            }
+
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Theres no database with that value");
+            }
         }
 
         private void DisplayDatabases()
@@ -74,7 +103,7 @@ namespace Backup
                     }
                 }
 
-                catch (InvalidCastException ex)
+                catch (InvalidCastException)
                 {
                     Console.WriteLine("please enter a numerical value from the list");
 

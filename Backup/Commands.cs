@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Backup
             
         }
 
-        public static void Director(string command)
+        public static void Director(string command, IConfiguration configuration)
         {
             if (command.Equals("--help"))
             {
@@ -23,6 +24,18 @@ namespace Backup
             if (command.Contains('-') && command != "--help" )
             {
                 Help();
+            }
+
+            try
+            {
+                Init i = new Init(configuration);
+                i.PopulateDatabaseList();
+                i.selectedDatabase(int.Parse(command));
+            }
+
+            catch (FormatException)
+            {
+                Console.WriteLine("your argument was not a numerical value");
             }
 
         }

@@ -26,11 +26,8 @@ namespace Backup
 
             IConfiguration configuration = builder.Build();
 
-
-
             if (args.Length == 0)
             {
-                Console.WriteLine("Please pass an argument");
                 Init i = new Init(configuration);
                 i.begin();
                 //return;
@@ -39,10 +36,9 @@ namespace Backup
             else
             {
                 string argument = args[0];
-                Commands.Director(argument);
+                Commands.Director(argument, configuration);
             }
 
-            
         }
 
     }
