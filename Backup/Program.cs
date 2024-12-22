@@ -6,7 +6,6 @@ namespace Backup
 {
     public class Program
     {
-
         protected Program()
         {
             

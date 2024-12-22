@@ -2,6 +2,7 @@
 using Xunit;
 using System.IO;
 using Backup.Databases.MSSQL;
+using System.Data;
 
 namespace TestBackup
 {
@@ -10,6 +11,8 @@ namespace TestBackup
         private IConfiguration? configuration;
 
         MssqlRepository repository;
+
+        DataTable dt;
 
         private void setConfiguration()
         {
@@ -47,6 +50,89 @@ namespace TestBackup
 
             bool isConnected = repository.testConnection();
             Assert.True(isConnected);
+        }
+
+        [Fact]
+        public void retrieveDbName()
+        {
+            setConfiguration();
+            repository = new MssqlRepository(configuration);
+
+            dt = new DataTable();
+
+            dt = repository.getDbnames();
+
+            if (dt == null)
+            {
+                Assert.True(false);
+            }
+
+            else
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Console.WriteLine(dr.ToString());
+                }
+                Assert.True(true);
+            }
+        }
+
+        [Fact]
+        public void testFullBackup()
+        {
+            setConfiguration();
+            repository = new MssqlRepository(configuration);
+
+            dt = new DataTable();
+
+            dt = repository.getDbnames();
+
+            if (repository.fullBackup(dt.Rows[0]["name"].ToString()))
+            {
+                Assert.True(true);
+            }
+
+            else
+            {
+                Assert.True(false);
+            }
+        }
+
+        [Fact]
+        public void differentialFullBackup()
+        {
+            setConfiguration();
+            repository = new MssqlRepository(configuration);
+
+            dt = new DataTable();
+
+            dt = repository.getDbnames();
+
+            if (repository.differentialBackup(dt.Rows[0]["name"].ToString()))
+            {
+                Assert.True(true);
+            }
+
+            else
+            {
+                Assert.True(false);
+            }
+        }
+
+        [Fact]
+        public void testRestore()
+        {
+            setConfiguration();
+            repository = new MssqlRepository(configuration);
+
+            dt = new DataTable();
+
+            dt = repository.getDbnames();
+
+            bool isRestored = repository.restoreDatabase(dt.Rows[0]["name"].ToString());
+
+            Assert.True(isRestored);
+
         }
     }
 }
