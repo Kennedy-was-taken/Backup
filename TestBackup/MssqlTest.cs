@@ -12,8 +12,6 @@ namespace TestBackup
 
         MssqlRepository repository;
 
-        DataTable dt;
-
         private void setConfiguration()
         {
             var builder = new ConfigurationBuilder();
@@ -42,11 +40,21 @@ namespace TestBackup
 
         //}
 
+
         [Fact]
         public void testConnection()
         {
             setConfiguration();
-            repository = new MssqlRepository(configuration);
+
+            if(configuration != null)
+            {
+                repository = new MssqlRepository(configuration);
+            }
+
+            else
+            {
+                throw new Exception("configuration variable was nulll");
+            }
 
             bool isConnected = repository.testConnection();
             Assert.True(isConnected);
@@ -56,9 +64,18 @@ namespace TestBackup
         public void retrieveDbName()
         {
             setConfiguration();
-            repository = new MssqlRepository(configuration);
 
-            dt = new DataTable();
+            if (configuration != null)
+            {
+                repository = new MssqlRepository(configuration);
+            }
+
+            else
+            {
+                throw new Exception("configuration variable was nulll");
+            }
+
+            DataTable dt = new();
 
             dt = repository.getDbnames();
 
@@ -78,61 +95,83 @@ namespace TestBackup
         }
 
         [Fact]
-        public void testFullBackup()
+        public void testBackup()
         {
             setConfiguration();
-            repository = new MssqlRepository(configuration);
 
-            dt = new DataTable();
+            if (configuration != null)
+            {
+                repository = new MssqlRepository(configuration);
+            }
+
+            else
+            {
+                throw new Exception("configuration variable was nulll");
+            }
+
+            DataTable dt = new();
 
             dt = repository.getDbnames();
 
-            if (repository.fullBackup(dt.Rows[0]["name"].ToString()))
+            var dbName = dt.Rows[0]["name"].ToString();
+
+            if (dbName != null)
             {
-                Assert.True(true);
+
+                bool doesExist = repository.doesBackupExist(dbName);
+
+                if (repository.Backup(dbName, doesExist))
+                {
+                    Assert.True(true);
+                }
+
+                else
+                {
+                    Assert.True(false);
+                }
+
             }
 
             else
             {
                 Assert.True(false);
+                throw new Exception("DataTable was null");
+                
             }
-        }
-
-        [Fact]
-        public void differentialFullBackup()
-        {
-            setConfiguration();
-            repository = new MssqlRepository(configuration);
-
-            dt = new DataTable();
-
-            dt = repository.getDbnames();
-
-            if (repository.differentialBackup(dt.Rows[0]["name"].ToString()))
-            {
-                Assert.True(true);
-            }
-
-            else
-            {
-                Assert.True(false);
-            }
+ 
         }
 
         [Fact]
         public void testRestore()
         {
             setConfiguration();
-            repository = new MssqlRepository(configuration);
 
-            dt = new DataTable();
+            if (configuration != null)
+            {
+                repository = new MssqlRepository(configuration);
+            }
+
+            else
+            {
+                throw new Exception("configuration variable was nulll");
+            }
+
+            DataTable dt = new();
 
             dt = repository.getDbnames();
 
-            bool isRestored = repository.restoreDatabase(dt.Rows[0]["name"].ToString());
+            var dbName = dt.Rows[0]["name"].ToString();
 
-            Assert.True(isRestored);
+            if (dbName != null)
+            {
+                bool isRestored = repository.restoreDatabase(dbName);
+                Assert.True(isRestored);
+            }
 
+            else
+            {
+                Assert.True(false);
+            }
         }
     }
 }

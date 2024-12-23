@@ -6,8 +6,6 @@ namespace Backup.Databases.MSSQL
 {
     public class MssqlRepository
     {
-        DataTable dt;
-
         private readonly IConfiguration configuration;
         private readonly string backupPath;
 
@@ -24,7 +22,7 @@ namespace Backup.Databases.MSSQL
 
         private string setBackupPath()
         {
-            dt = new DataTable();
+            DataTable dt = new DataTable();
 
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
             {
@@ -45,10 +43,11 @@ namespace Backup.Databases.MSSQL
                 }
             }
 
-            return dt.Rows[0][0].ToString();
+            var path = dt.Rows[0][0].ToString();
+
+            return path;
 
         }
-
 
         public bool testConnection()
         {
@@ -70,7 +69,7 @@ namespace Backup.Databases.MSSQL
 
         public DataTable getDbnames()
         {
-            dt = new DataTable();
+            DataTable dt = new DataTable();
 
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
             {
@@ -90,7 +89,7 @@ namespace Backup.Databases.MSSQL
             return dt;
         }
 
-        public bool fullBackup(string dbName)
+        public bool Backup(string dbName, bool doesExist)
         {
             try
             {
@@ -100,40 +99,20 @@ namespace Backup.Databases.MSSQL
                 {
                     conn.Open();
 
-                    string query = $"BACKUP DATABASE {dbName} TO DISK = '{newPath}.bak' " +
-                        $"WITH NAME = 'Full Backup of {dbName}', DESCRIPTION = 'Full Database Backup'";
+                    string query = string.Empty;
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    if (doesExist)
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery();
+                        query = $"BACKUP DATABASE {dbName} TO DISK = '{newPath}.bak' " +
+                        $"WITH DIFFERENTIAL, NAME = 'Partial Backup of {dbName}', DESCRIPTION = 'Partial Database Backup'";
                     }
 
-                }
-
-                return true;
-            }
-
-            catch (SqlException)
-            {
-                return false;
-            }
-
-        }
-
-        public bool differentialBackup(string dbName)
-        {
-
-            try
-            {
-                string newPath = Path.Combine(this.backupPath, dbName);
-
-                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
-                {
-                    conn.Open();
-
-                    string query = $"BACKUP DATABASE {dbName} TO DISK = '{newPath}.bak' " +
-                        $"WITH DIFFERENTIAL, NAME = 'Partial Backup of {dbName}', DESCRIPTION = 'Partial Database Backup'";
+                    else
+                    {
+                        query = $"BACKUP DATABASE {dbName} TO DISK = '{newPath}.bak' " +
+                        $"WITH NAME = 'Full Backup of {dbName}', DESCRIPTION = 'Full Database Backup'";
+                    }
+                    
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {

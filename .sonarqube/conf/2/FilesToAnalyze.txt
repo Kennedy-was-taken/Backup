@@ -1,0 +1,6 @@
+﻿C:\Users\Kennedy\Documents\Projects\console_apps\Backup\Backup\Commands.cs
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\Backup\Databases\MSSQL\MssqlRepository.cs
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\Backup\Databases\MSSQL\MssqlService.cs
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\Backup\Init.cs
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\Backup\Program.cs
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\Backup\appsettings.json

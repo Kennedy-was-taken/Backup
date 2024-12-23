@@ -9,7 +9,7 @@
   <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
   <SonarQubeHostUrl>http://localhost:9000</SonarQubeHostUrl>
   <SonarQubeVersion>24.12.0.100206</SonarQubeVersion>
-  <SonarProjectKey>backup</SonarProjectKey>
+  <SonarProjectKey>testSonar</SonarProjectKey>
   <AdditionalConfig>
     <ConfigSetting Id="BuildUri" />
     <ConfigSetting Id="TfsUri" />
@@ -137,7 +137,7 @@
     <Property Name="sonar.java.jvmframeworkconfig.activate">true</Property>
     <Property Name="sonar.updatecenter.url">https://downloads.sonarsource.com/sonarqube/update/update-center.properties</Property>
     <Property Name="sonar.core.id">147B411E-AZPcOKZFJi35WstvXatF</Property>
-    <Property Name="sonar.core.startTime">12/23/2024 1:28:56 AM</Property>
+    <Property Name="sonar.core.startTime">12/23/2024 2:51:04 PM</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
