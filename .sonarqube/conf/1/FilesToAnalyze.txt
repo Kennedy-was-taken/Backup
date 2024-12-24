@@ -1,7 +1,0 @@
-﻿C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\MssqlTest.cs
-C:\Users\Kennedy\.nuget\packages\microsoft.net.test.sdk\17.12.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
-C:\Users\Kennedy\.nuget\packages\microsoft.testplatform.testhost\17.12.0\build\netcoreapp3.1\x64\testhost.exe
-C:\Users\Kennedy\.nuget\packages\microsoft.testplatform.testhost\17.12.0\build\netcoreapp3.1\x64\testhost.dll
-C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\3.0.0\build\net6.0\xunit.abstractions.dll
-C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\3.0.0\build\net6.0\xunit.runner.visualstudio.testadapter.dll
-C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\TestResults\cf8f10fa-0fd1-45d1-827b-39b016afecaf\coverage.opencover.xml
