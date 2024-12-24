@@ -10,7 +10,7 @@ namespace TestBackup
     {
         private IConfiguration? configuration;
 
-        MssqlRepository repository;
+        MssqlRepository? repository;
 
         private void setConfiguration()
         {

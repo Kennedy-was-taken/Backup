@@ -9,7 +9,7 @@
   <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
   <SonarQubeHostUrl>http://localhost:9000</SonarQubeHostUrl>
   <SonarQubeVersion>24.12.0.100206</SonarQubeVersion>
-  <SonarProjectKey>backup</SonarProjectKey>
+  <SonarProjectKey>Backup</SonarProjectKey>
   <AdditionalConfig>
     <ConfigSetting Id="BuildUri" />
     <ConfigSetting Id="TfsUri" />
@@ -32,7 +32,7 @@
     <Property Name="sonar.multi-quality-mode.enabled">true</Property>
     <Property Name="sonaranalyzer-cs.ruleNamespace">SonarAnalyzer.CSharp</Property>
     <Property Name="sonar.azureresourcemanager.file.identifier">https://schema.management.azure.com/schemas/,http://schema.management.azure.com/schemas/</Property>
-    <Property Name="sonar.cs.analyzeGeneratedCode">false</Property>
+    <Property Name="sonar.cs.analyzeGeneratedCode">true</Property>
     <Property Name="sonar.java.jvmframeworkconfig.file.patterns">**/src/main/resources/**/*app*.properties,**/src/main/resources/**/*app*.yaml,**/src/main/resources/**/*app*.yml</Property>
     <Property Name="sonar.builtInQualityProfiles.disableNotificationOnUpdate">false</Property>
     <Property Name="sonar.css.file.suffixes">.css,.less,.scss,.sass</Property>
@@ -137,7 +137,7 @@
     <Property Name="sonar.java.jvmframeworkconfig.activate">true</Property>
     <Property Name="sonar.updatecenter.url">https://downloads.sonarsource.com/sonarqube/update/update-center.properties</Property>
     <Property Name="sonar.core.id">147B411E-AZPcOKZFJi35WstvXatF</Property>
-    <Property Name="sonar.core.startTime">12/23/2024 2:51:04 PM</Property>
+    <Property Name="sonar.core.startTime">12/24/2024 12:28:25 PM</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.host.url">http://localhost:9000</Property>

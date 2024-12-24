@@ -1,7 +1,11 @@
 ﻿C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\MssqlTest.cs
-C:\Users\Kennedy\.nuget\packages\microsoft.net.test.sdk\17.11.1\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
-C:\Users\Kennedy\.nuget\packages\microsoft.testplatform.testhost\17.11.1\build\netcoreapp3.1\x64\testhost.exe
-C:\Users\Kennedy\.nuget\packages\microsoft.testplatform.testhost\17.11.1\build\netcoreapp3.1\x64\testhost.dll
-C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\2.8.2\build\net6.0\xunit.runner.visualstudio.testadapter.dll
-C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\2.8.2\build\net6.0\xunit.runner.reporters.netcoreapp10.dll
-C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\2.8.2\build\net6.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Kennedy\.nuget\packages\microsoft.net.test.sdk\17.12.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
+C:\Users\Kennedy\.nuget\packages\microsoft.testplatform.testhost\17.12.0\build\netcoreapp3.1\x64\testhost.exe
+C:\Users\Kennedy\.nuget\packages\microsoft.testplatform.testhost\17.12.0\build\netcoreapp3.1\x64\testhost.dll
+C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\3.0.0\build\net6.0\xunit.abstractions.dll
+C:\Users\Kennedy\.nuget\packages\xunit.runner.visualstudio\3.0.0\build\net6.0\xunit.runner.visualstudio.testadapter.dll
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\TestResults\254df168-e255-4a65-b2f0-17c008f1963c\coverage.opencover.xml
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\TestResults\2be91e58-fa50-4888-9bfd-6323a9273a57\coverage.opencover.xml
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\TestResults\50d9d36c-7519-47b2-bb73-97240fcffb6d\coverage.opencover.xml
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\TestResults\8abca7e9-f8d0-45a6-8c0e-dc3e2686adc1\coverage.opencover.xml
+C:\Users\Kennedy\Documents\Projects\console_apps\Backup\TestBackup\TestResults\b8a730c2-142e-42b2-b56b-2e26d6cb17a1\coverage.opencover.xml
