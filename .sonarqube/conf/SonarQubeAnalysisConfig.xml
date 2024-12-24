@@ -137,10 +137,12 @@
     <Property Name="sonar.java.jvmframeworkconfig.activate">true</Property>
     <Property Name="sonar.updatecenter.url">https://downloads.sonarsource.com/sonarqube/update/update-center.properties</Property>
     <Property Name="sonar.core.id">147B411E-AZPcOKZFJi35WstvXatF</Property>
-    <Property Name="sonar.core.startTime">12/24/2024 12:28:25 PM</Property>
+    <Property Name="sonar.core.startTime">12/24/2024 6:12:47 PM</Property>
   </ServerSettings>
   <LocalSettings>
+    <Property Name="sonar.cs.dotcover.reportsPaths">dotCover.Output.html</Property>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
+    <Property Name="sonar.exclusions">dotCover.Output.html,dotCover.Output/**</Property>
   </LocalSettings>
   <AnalyzersSettings>
     <AnalyzerSettings>
