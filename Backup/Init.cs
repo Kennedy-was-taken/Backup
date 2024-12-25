@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Backup
     public class Init
     {
 
-        List<string>? dbNames;
+        private List<string>? dbNames;
         bool moreThanOne = false;
 
         private readonly IConfiguration configuration;
@@ -45,6 +46,7 @@ namespace Backup
 
         }
 
+        [ExcludeFromCodeCoverage]
         public void selectedDatabase(int selectedValue)
         {
             try
@@ -74,6 +76,7 @@ namespace Backup
             }
         }
 
+        [ExcludeFromCodeCoverage]
         private void DisplayDatabases()
         {
             int response = 0;

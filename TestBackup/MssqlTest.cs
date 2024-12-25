@@ -28,19 +28,6 @@ namespace TestBackup
 
         }
 
-        //[Fact]
-        //public void getConnectionString()
-        //{
-        //    setConfiguration();
-        //    repository = new MssqlRepository(configuration);
-
-        //    var connectionString = repository.GetConnectionString();
-
-        //    Assert.True(connectionString != null);
-
-        //}
-
-
         [Fact]
         public void testConnection()
         {
