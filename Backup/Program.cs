@@ -25,18 +25,8 @@ namespace Backup
 
             IConfiguration configuration = builder.Build();
 
-            if (args.Length == 0)
-            {
-                Init i = new Init(configuration);
-                i.begin();
-                //return;
-            }
-
-            else
-            {
-                string argument = args[0];
-                Commands.Director(argument, configuration);
-            }
+            Init i = new Init(configuration);
+            i.begin();    
 
         }
 

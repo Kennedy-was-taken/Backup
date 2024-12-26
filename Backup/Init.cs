@@ -1,10 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using Backup.Databases.MSSQL;
+using Microsoft.Extensions.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backup
 {
@@ -12,7 +8,6 @@ namespace Backup
     {
 
         private List<string>? dbNames;
-        bool moreThanOne = false;
 
         private readonly IConfiguration configuration;
 
@@ -39,42 +34,6 @@ namespace Backup
                 dbNames.Add(item.Key);
             }
 
-            if (dbNames.Count > 1)
-            {
-                dbNames.Add("Backup All");
-                moreThanOne = true;
-            }
-
-        }
-
-        [ExcludeFromCodeCoverage]
-        public void selectedDatabase(int selectedValue)
-        {
-            try
-            {
-                if (moreThanOne)
-                {
-                    if (dbNames?[selectedValue - 1] == "Backup All")
-                    {
-                        Console.WriteLine("Backing up all databases");
-                    }
-
-                    else
-                    {
-                        Console.WriteLine($"Backing up {dbNames?[selectedValue - 1].ToString()}");
-                    }
-                }
-
-                else
-                {
-                    Console.WriteLine($"Backing up {dbNames?[selectedValue - 1].ToString()}");
-                }
-            }
-
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.WriteLine("Theres no database with that value");
-            }
         }
 
         [ExcludeFromCodeCoverage]
@@ -82,19 +41,126 @@ namespace Backup
         {
             int response = 0;
 
-            Console.WriteLine("Current Databases Available : ");
-            for (int i = 0; i < dbNames?.Count; i++)
+            if (dbNames == null)
             {
-                Console.WriteLine($"{i + 1}. {dbNames[i]}");
+                Console.WriteLine("No Databases found : ");
             }
 
+            else
+            {
+
+                Console.WriteLine("Current Databases Available : ");
+                for (int i = 0; i < dbNames?.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {dbNames[i]}");
+                }
+
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write("Select you option (e.g. 1) : ");
+
+                        var userInput = Console.ReadLine();
+
+                        if (userInput != null)
+                        {
+                            response = int.Parse(userInput.ToString());
+
+                            if (response == 0)
+                            {
+                                throw new Exception();
+                            }
+                        }
+
+                        else
+                        {
+                            throw new Exception();
+                        }
+
+                        if (response <= dbNames?.Count)
+                        {
+                            break;
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("please enter a numerical value from the list");
+                        }
+                    }
+
+                    catch (InvalidCastException)
+                    {
+                        Console.WriteLine("please enter a numerical value from the list");
+
+                    }
+
+                    catch (Exception)
+                    {
+                        Console.WriteLine("please enter a numerical value from the list");
+                    }
+                }
+
+                ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+                Validate valid = new Validate();
+
+                switch(dbNames[response - 1])
+                {
+                    case "MySql":
+
+                        break;
+
+                    case "Postgre":
+
+                        break;
+
+                    case "SQL Server":
+                        serviceResponse = valid.isSqlServerInstalled();
+
+                        if (serviceResponse.isSuccess)
+                        {
+                            Console.WriteLine(serviceResponse.message);
+                            DatabaseOption(dbNames[response - 1]);
+
+                        }
+
+                        else
+                        {
+                            Console.WriteLine(serviceResponse.message);
+                        }
+                        break;
+                }
+
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void DatabaseOption(string dbName)
+        {
+            int response = 0;
             while (true)
             {
                 try
                 {
-                    Console.Write("Select you option (e.g. 1) : ");
+                    Console.WriteLine($"Select you option (e.g. 1) for {dbName}: ");
+                    Console.WriteLine("1. Backup Database");
+                    Console.WriteLine("2. Restore Database");
 
-                    response = int.Parse(Console.ReadLine());
+                    var userInput = Console.ReadLine();
+
+                    if (userInput != null)
+                    {
+                        response = int.Parse(userInput.ToString());
+                        if (response == 0)
+                        {
+                            throw new Exception();
+                        }
+                    }
+
+                    else
+                    {
+                        throw new Exception();
+                    }
 
                     if (response <= dbNames?.Count)
                     {
@@ -112,26 +178,62 @@ namespace Backup
                     Console.WriteLine("please enter a numerical value from the list");
 
                 }
+
+                catch (Exception)
+                {
+                    Console.WriteLine("please enter a numerical value from the list");
+                }
             }
 
-            if (moreThanOne)
+            if (response == 1)
             {
-                if (dbNames[response - 1] == "Backup All")
-                {
-                    Console.WriteLine("Backing up all databases");
-                }
-
-                else
-                {
-                    Console.WriteLine($"Backing up {dbNames[response - 1].ToString()}");
-                }
+                Redirector(dbName, "Backup");
             }
 
             else
             {
-                Console.WriteLine($"Backing up {dbNames[response - 1].ToString()}");
+                Redirector(dbName, "Restore");
             }
 
+            
         }
+
+        [ExcludeFromCodeCoverage]
+        public void Redirector(string dbName, string option)
+        {
+            ServiceResponse<bool> service = new();
+
+            switch (dbName)
+            {
+                case "MySql":
+
+                break;
+
+                case "Postgre":
+
+                break;
+
+                case "SQL Server":
+
+                    MssqlService mssqlservice = new(configuration);
+
+                    Console.WriteLine($"Testing Connnection to {dbName}");
+                    var isConnected = mssqlservice.TestConnection();
+
+                    if (isConnected.isSuccess)
+                    {
+                        Console.WriteLine(isConnected.message);
+                        mssqlservice.startProcess(option);
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(isConnected.message);
+                    }
+
+                break;
+            }
+        }
+
     }
 }

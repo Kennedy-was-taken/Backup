@@ -8,14 +8,14 @@
 
 This C# console application provides a convenient interface for manually backing up your Microsoft SQL Server databases.
 
-
+<!-- 
 ## Getting Started
 
 These instructions will give you a copy of the project up and running on
 your local machine for development and testing purposes. See deployment
-for notes on deploying the project on a live system.
+for notes on deploying the project on a live system. -->
 
-### Prerequisites
+## Prerequisites
 
 Requirements for the software to work
 
@@ -23,96 +23,60 @@ Requirements for the software to work
 2. Download and install SQL Server
 
 
-### Features:
+## Features:
 
-1. User-Driven Backups: Easily initiate database backups on demand.
-2. User-Friendly Interface: Intuitive console interface for easy navigation and execution.
-3. NET 9 Framework: Built on the latest .NET framework for optimal performance and compatibility.
-4. SQL Server Support: Currently supports Microsoft SQL Server databases. Support for other databases will be added in future releases.
+1. **User-Driven Backups**: Easily initiate database backups on demand.
+2. **User-Friendly Interface**: Intuitive console interface for easy navigation and execution.
+3. **NET 9 Framework**: Built on the latest .NET framework for optimal performance and compatibility.
+4. **SQL Server Support**: Currently supports Microsoft SQL Server databases. Support for other databases will be added in future releases.
 
-<!-- ### Installing
+## Installing
 
-A step by step series of examples that tell you how to get a development
-environment running
+A step by step series of examples that will show you how to get program to run on CLI from anywhere
 
-Say what the step will be
+1. **Clone the repository:**
 
-    Give the example
+    1.1. Clone the repository onto your local machine
 
-And repeat
+        https://github.com/Kennedy-was-taken/Backup.git
 
-    until finished
+    1.2. You can delete the TestBackup folder as there is no need for that folder
 
-End with an example of getting some data out of the system or using it
-for a little demo -->
+2. **Set up environment:**
 
-<!-- ## Running the tests
+    2.1. Copy the path where the is found Backup.exe. example :
 
-Explain how to run the automated tests for this system
+        \Backup\Backup\bin\Debug\net9.0
 
-### Sample Tests
+    2.2. Open run `win + r`
 
-Explain what these tests test and why
+    ![run](./images/command.png)
 
-    Give an example
+    2.3. Type `sysdm.cpl` to open system properties, click on the Advance tab. Under the Advance tab, click on the Environment Vairable button.
 
-### Style test
+    ![command](./images/environment.png)
 
-Checks if the best practices and the right coding style has been used.
+    2.4. Under the system variable, select "Path" and click the edit button.
 
-    Give an example
+    ![select](./images/path.png)
+    
+    2.5. Click the "New" button and paste in the relative path you copied and click "OK" to accept all changes.
 
-## Deployment
+    ![add_path](./images/setPath.png)
 
-Add additional notes to deploy this on a live system
+    2.6. Now the program can be called from anywhere by typing `Backup` on the CLI
 
-## Built With
+3. **Set up DataBase Configuration:**
 
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
+  3.1. Open the file appsetting.json found here 
 
-## Contributing
+        "C:\Backup\Backup\appsettings.json"
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+  3.2. Replace the "Server" name with your Sql server name, replace "User ID" with your account username and replace "Password" with the account user's password
 
-## Versioning
-
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
-
-## Authors
-
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
-
-## License
-
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
-
-## Acknowledgments
-
-  - Hat tip to anyone whose code is used
-  - Inspiration
-  - etc -->
+  ![jsonFile](./images/json.png)
 
 
+ ## Future Updates
 
-&nbsp;
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-153-orange.svg?style=flat-square)](#contributors-)
-[![CircleCI](https://circleci.com/gh/codesandbox/codesandbox-client.svg?style=svg)](https://circleci.com/gh/codesandbox/codesandbox-client)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=cVJuczlJWUtqWXhIbFN1ZjVQekF4NzNsd3phNEZRaGlWU0pHYVVkdGRFWT0tLXFtTVhaOWRySmN0ZG5QVDNDQ0g5Z0E9PQ==--79fe3eae4f149a400d396c9b12d3988f685785cf)](https://www.browserstack.com/automate/public-build/cVJuczlJWUtqWXhIbFN1ZjVQekF4NzNsd3phNEZRaGlWU0pHYVVkdGRFWT0tLXFtTVhaOWRySmN0ZG5QVDNDQ0g5Z0E9PQ==--79fe3eae4f149a400d396c9b12d3988f685785cf)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![first-timers-only Friendly](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](http://www.firsttimersonly.com/)
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-
+ Well be working on adding Postgre and Oracle next.

@@ -45,7 +45,15 @@ namespace Backup.Databases.MSSQL
 
             var path = dt.Rows[0][0].ToString();
 
-            return path;
+            if (path != null)
+            {
+                return path;
+            }
+
+            else
+            {
+                return "";
+            }
 
         }
 
@@ -188,6 +196,21 @@ namespace Backup.Databases.MSSQL
             {
                 return false;
             }
+        }
+
+        public string[]? getBackupFileName()
+        {
+            try
+            {
+                string[] fileNames = Directory.GetFiles(backupPath);
+                return fileNames;
+            }
+
+            catch (Exception)
+            {
+                return null;
+            }
+
         }
     }
 }
