@@ -21,6 +21,7 @@ namespace Backup
             this.configuration = configuration;
         }
 
+        [ExcludeFromCodeCoverage]
         public void begin()
         {
             PopulateDatabaseList();

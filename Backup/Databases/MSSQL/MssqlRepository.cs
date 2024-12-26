@@ -130,6 +130,11 @@ namespace Backup.Databases.MSSQL
                 return false;
             }
 
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
         public bool restoreDatabase(string dbName)
@@ -146,7 +151,7 @@ namespace Backup.Databases.MSSQL
                         $"BEGIN " +
                         $"DROP DATABASE {dbName} " +
                         $"END " +
-                        $"RESTORE DATABASE test2 FROM DISK = '{newPath}.bak'";
+                        $"RESTORE DATABASE {dbName} FROM DISK = '{newPath}.bak'";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {

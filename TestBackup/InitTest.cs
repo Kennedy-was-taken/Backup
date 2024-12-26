@@ -13,8 +13,6 @@ namespace TestBackup
     {
         private IConfiguration? configuration;
 
-        MssqlRepository? repository;
-
         private void setConfiguration()
         {
             var builder = new ConfigurationBuilder();

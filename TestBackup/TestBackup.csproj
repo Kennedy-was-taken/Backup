@@ -31,4 +31,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Oracle\" />
+    <Folder Include="Postgre\" />
+  </ItemGroup>
+
 </Project>
