@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="172.52.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Databases\MySQL\" />
+    <Folder Include="Databases\Postgre\" />
+  </ItemGroup>
+
 </Project>

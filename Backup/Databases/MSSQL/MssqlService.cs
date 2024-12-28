@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.SqlServer.Management.Smo;
 using System.Collections.Generic;
 using System.Data;
@@ -29,160 +30,147 @@ namespace Backup.Databases.MSSQL
                 case "Backup":
                     ServiceResponse<DataTable> backupService = DatabaseNames();
                     display(backupService, option);
-                break;
+                    break;
 
                 case "Restore":
                     ServiceResponse<List<string>> restoreService = getDatabaseBackupFiles();
                     display(restoreService, option);
-                break;
+                    break;
 
             }
         }
 
         [ExcludeFromCodeCoverage]
-        public void display<T>(ServiceResponse<T> dbName, string option)
+        public void display(ServiceResponse<DataTable> dbName, string option)
+        {
+
+            int response = 0;
+
+            DataTable? data = dbName.data;
+
+            if (data != null)
+            {
+
+                while (true)
+                {
+                    try
+                    {
+
+                        int count = 0;
+
+                        foreach (DataRow row in data.Rows)
+                        {
+                            Console.WriteLine($"{count + 1}. {row["name"].ToString()}");
+                            count++;
+                        }
+
+                        Console.Write("Select you option (e.g. 1) : ");
+
+                        var userInput = Console.ReadLine();
+
+                        if (userInput != null)
+                        {
+                            response = int.Parse(userInput.ToString());
+
+                        }
+
+                        if (response <= data?.Rows.Count && response != 0)
+                        {
+                            break;
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("please enter a numerical value from the list");
+                        }
+
+                    }
+
+                    catch (InvalidCastException)
+                    {
+                        Console.WriteLine("please enter a numerical value from the list");
+
+                    }
+
+                    catch (Exception)
+                    {
+                        Console.WriteLine("please enter a numerical value from the list");
+                    }
+
+                }
+
+
+                if (data.Rows[response - 1]["name"].ToString() == "Backup All")
+                {
+                    BackupOrRestore(data, option);
+                }
+
+                else
+                {
+                    BackupOrRestore(data.Rows[response - 1]["name"].ToString(), option);
+                }
+
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void display(ServiceResponse<List<string>> dbName, string option)
         {
             int response = 0;
 
-            dynamic? data = dbName.data;
+            List<string> data = dbName.data;
 
-            switch (option)
+            while (true)
             {
-                case "Backup":
+                try
+                {
 
-                    while (true)
+                    for (int i = 0; i < data?.Count; i++)
                     {
-                        try
-                        {
-
-                            int count = 0;
-
-                            foreach (DataRow row in data.Rows)
-                            {
-                                Console.Write($"{count + 1}. {row["name"].ToString()}");
-                                count++;
-                            }
-
-                            Console.Write("Select you option (e.g. 1) : ");
-
-                            var userInput = Console.ReadLine();
-
-                            if (userInput != null)
-                            {
-                                response = int.Parse(userInput.ToString());
-
-                                if (response == 0)
-                                {
-                                    throw new Exception();
-                                }
-                            }
-
-                            else
-                            {
-                                throw new Exception();
-                            }
-
-                            if (response <= data?.Rows.Count)
-                            {
-                                break;
-                            }
-
-                            else
-                            {
-                                Console.WriteLine("please enter a numerical value from the list");
-                            }
-                        }
-
-                        catch (InvalidCastException)
-                        {
-                            Console.WriteLine("please enter a numerical value from the list");
-
-                        }
-
-                        catch (Exception)
-                        {
-                            Console.WriteLine("please enter a numerical value from the list");
-                        }
+                        Console.WriteLine($"{i + 1}. {data[i]}");
                     }
 
-                    if (data["name"][response].ToString() == data["name"][response].ToString())
+                    Console.Write("Select you option (e.g. 1) : ");
+
+                    var userInput = Console.ReadLine();
+
+                    if (userInput != null)
                     {
-                        BackupOrRestore(data["name"][response - 1], option);
+                        response = int.Parse(userInput.ToString());
+                    }
+
+                    if (response <= data.Count && response != 0)
+                    {
+                        break;
                     }
 
                     else
                     {
-                        BackupOrRestore(data, option);
+                        Console.WriteLine("please enter a numerical value from the list");
                     }
+                }
 
-                    break;
+                catch (InvalidCastException)
+                {
+                    Console.WriteLine("please enter a numerical value from the list");
 
-                case "Restore":
+                }
 
-                    while (true)
-                    {
-                        try
-                        {
+                catch (Exception)
+                {
+                    Console.WriteLine("please enter a numerical value from the list");
+                }
+            }
 
-                            for (int i = 0; i < data?.Count; i++)
-                            {
-                                Console.Write($"{i + 1}. {data[i]}");
-                            }
+            if (data[response - 1].ToString() == "Restore all")
+            {
 
-                            Console.Write("Select you option (e.g. 1) : ");
+                BackupOrRestore(data, option);
+            }
 
-                            var userInput = Console.ReadLine();
-
-                            if (userInput != null)
-                            {
-                                response = int.Parse(userInput.ToString());
-
-                                if (response == 0)
-                                {
-                                    throw new Exception();
-                                }
-                            }
-
-                            else
-                            {
-                                throw new Exception();
-                            }
-
-                            if (response <= data.Count)
-                            {
-                                break;
-                            }
-
-                            else
-                            {
-                                Console.WriteLine("please enter a numerical value from the list");
-                            }
-                        }
-
-                        catch (InvalidCastException)
-                        {
-                            Console.WriteLine("please enter a numerical value from the list");
-
-                        }
-
-                        catch (Exception)
-                        {
-                            Console.WriteLine("please enter a numerical value from the list");
-                        }
-                    }
-
-                    if (data[data.Count - 1].ToString() == data[response].ToString())
-                    {
-                        BackupOrRestore(data[response - 1], option);
-                    }
-
-                    else
-                    {
-                        BackupOrRestore(data, option);
-                    }
-
-                break;
-
+            else
+            {
+                BackupOrRestore(data[response - 1].ToString(), option);
             }
         }
 
@@ -190,29 +178,29 @@ namespace Backup.Databases.MSSQL
         [ExcludeFromCodeCoverage]
         public void BackupOrRestore(string dbName, string option)
         {
+
+            Console.WriteLine("");
             switch (option)
             {
                 case "Backup":
 
                     var result = CheckBackupExists(dbName);
-
                     Console.WriteLine($"Attempting to Backup {dbName}");
 
                     var backupResult = BackupDatabase(dbName, result.data);
-                   
+
                     Console.WriteLine(backupResult.message);
-                    
-                break;
+
+                    break;
 
                 case "Restore":
-
                     Console.WriteLine($"Attempting to Restore {dbName}");
 
                     var restoreResult = RestoreDatabase(dbName);
 
                     Console.WriteLine(restoreResult.message);
 
-                break;
+                    break;
 
             }
         }
@@ -231,26 +219,36 @@ namespace Backup.Databases.MSSQL
 
                     foreach (DataRow row in obj.Rows)
                     {
-                        var result = CheckBackupExists(obj["name"].ToString());
+                        Console.WriteLine("");
+                        if (row["name"].ToString() != "Backup All")
+                        {
+                            var result = CheckBackupExists(row["name"].ToString());
 
-                        Console.WriteLine($"Attempting to Backup {obj["name"].ToString()}");
+                            Console.WriteLine($"Attempting to Backup {row["name"].ToString()}");
 
-                        var restoreResult = BackupDatabase(obj["name"].ToString(), result.data);
+                            var restoreResult = BackupDatabase(row["name"].ToString(), result.data);
 
-                        Console.WriteLine(restoreResult.message);
+                            Console.WriteLine(restoreResult.message);
+                        }
+                        
                     }
 
                     break;
 
                 case "Restore":
-
                     for (int i = 0; i < obj.Count; i++)
                     {
-                        Console.WriteLine($"Attempting to Restore {obj[i].ToString()}");
+                        Console.WriteLine("");
+                        if (obj[i].ToString() != "Restore all")
+                        {
+                            Console.WriteLine($"Attempting to Restore {obj[i].ToString()}");
 
-                        var backupResult = RestoreDatabase(obj[i].ToString());
+                            var backupResult = RestoreDatabase(obj[i].ToString());
 
-                        Console.WriteLine(backupResult.message);
+                            Console.WriteLine(backupResult.message);
+                        }
+
+                        
                     }
                     break;
 
@@ -264,11 +262,10 @@ namespace Backup.Databases.MSSQL
 
             if (results != null)
             {
-                if (results.Length >= 2)
+                if (results.Count >= 2)
                 {
-                    var newType = results.ToList();
-                    newType.Add("Restore all");
-                    service.data = newType;
+                    results.Add("Restore all");
+                    service.data = results;
                 }
 
                 else
@@ -381,7 +378,7 @@ namespace Backup.Databases.MSSQL
             if (results)
             {
                 service.data = results;
-                service.message = $"{dbName} database was has been backed up";
+                service.message = $"{dbName} database has been backed up";
                 service.isSuccess = results;
             }
 
@@ -404,7 +401,7 @@ namespace Backup.Databases.MSSQL
             if (results)
             {
                 service.data = results;
-                service.message = $"{dbName} database was has been restored";
+                service.message = $"{dbName} database has been restored";
                 service.isSuccess = results;
             }
 

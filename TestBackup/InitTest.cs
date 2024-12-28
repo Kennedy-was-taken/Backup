@@ -42,7 +42,7 @@ namespace TestBackup
                 {
                     Assert.True(false);
                 }
-                
+
             }
 
             catch (Exception)
@@ -52,5 +52,31 @@ namespace TestBackup
         }
 
 
+        [Fact]
+        public void testRedirector()
+        {
+            try
+            {
+                setConfiguration();
+
+                if (configuration != null)
+                {
+                    Init start = new(configuration);
+                    start.Redirector("life", "Backup");
+                    Assert.True(true);
+                }
+
+                else
+                {
+                    Assert.Fail();
+                }
+
+            }
+
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+        }
     }
 }

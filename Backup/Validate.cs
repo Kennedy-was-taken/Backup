@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.SqlServer.Management.Smo;
+﻿using Microsoft.SqlServer.Management.Smo;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Backup
 {
     public class Validate
     {
-        public ServiceResponse<bool> isSqlServerInstalled()
+        [ExcludeFromCodeCoverage]
+        protected Validate()
+        {
+
+        }
+        public static ServiceResponse<bool> isSqlServerInstalled()
         {
             ServiceResponse<bool> service = new ServiceResponse<bool>();
-
             try
             {
                 Server server = new Server();

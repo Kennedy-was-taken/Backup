@@ -160,5 +160,33 @@ namespace TestBackup
                 Assert.True(false);
             }
         }
+
+        [Fact]
+        public void testGetFileNames()
+        {
+            setConfiguration();
+
+            if (configuration != null)
+            {
+                repository = new MssqlRepository(configuration);
+            }
+
+            else
+            {
+                throw new Exception("configuration variable was nulll");
+            }
+
+            List<string>? test = repository.getBackupFileName();
+
+            if (test != null)
+            {
+                Assert.True(true, "file names found");
+            }
+
+            else
+            {
+                Assert.Fail("no fles came back");
+            }
+        }
     }
 }

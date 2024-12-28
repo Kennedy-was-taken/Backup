@@ -70,12 +70,18 @@ A step by step series of examples that will show you how to get program to run o
 
   3.1. Open the file appsetting.json found here 
 
-        "C:\Backup\Backup\appsettings.json"
+    "C:\Backup\Backup\appsettings.json"
 
   3.2. Replace the "Server" name with your Sql server name, replace "User ID" with your account username and replace "Password" with the account user's password
 
   ![jsonFile](./images/json.png)
 
+
+ ## Backup file location
+
+The generated backup file .bak will be stored in the default Backup location e.g :
+
+    C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Backup
 
  ## Future Updates
 

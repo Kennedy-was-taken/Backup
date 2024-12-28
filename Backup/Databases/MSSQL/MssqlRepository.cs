@@ -198,12 +198,18 @@ namespace Backup.Databases.MSSQL
             }
         }
 
-        public string[]? getBackupFileName()
+        public List<string>? getBackupFileName()
         {
+            List<string>? filenames = new List<string>();
             try
             {
-                string[] fileNames = Directory.GetFiles(backupPath);
-                return fileNames;
+                string[] filePaths = Directory.GetFiles(backupPath);
+
+                for(int i = 0; i < filePaths.Length; i++)
+                {
+                    filenames.Add(Path.GetFileNameWithoutExtension(filePaths[i]));
+                }
+                return filenames;
             }
 
             catch (Exception)

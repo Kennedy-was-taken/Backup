@@ -4,12 +4,12 @@ namespace TestBackup
 {
     public class ValidateTest
     {
+
         [Fact]
         public void isSqlInstalled()
         {
-            Validate valid = new Validate();
 
-            var isInstalled = valid.isSqlServerInstalled();
+            var isInstalled = Validate.isSqlServerInstalled();
 
             if (isInstalled.isSuccess)
             {

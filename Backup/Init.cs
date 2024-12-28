@@ -67,18 +67,9 @@ namespace Backup
                         {
                             response = int.Parse(userInput.ToString());
 
-                            if (response == 0)
-                            {
-                                throw new Exception();
-                            }
                         }
 
-                        else
-                        {
-                            throw new Exception();
-                        }
-
-                        if (response <= dbNames?.Count)
+                        if (response <= dbNames?.Count && response != 0)
                         {
                             break;
                         }
@@ -102,9 +93,8 @@ namespace Backup
                 }
 
                 ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
-                Validate valid = new Validate();
 
-                switch(dbNames[response - 1])
+                switch (dbNames[response - 1])
                 {
                     case "MySql":
 
@@ -115,7 +105,8 @@ namespace Backup
                         break;
 
                     case "SQL Server":
-                        serviceResponse = valid.isSqlServerInstalled();
+                        Console.WriteLine("");
+                        serviceResponse = Validate.isSqlServerInstalled();
 
                         if (serviceResponse.isSuccess)
                         {
@@ -142,27 +133,19 @@ namespace Backup
             {
                 try
                 {
-                    Console.WriteLine($"Select you option (e.g. 1) for {dbName}: ");
+                    Console.WriteLine($"Would you like to backup or restore : ");
                     Console.WriteLine("1. Backup Database");
                     Console.WriteLine("2. Restore Database");
+                    Console.Write($"Select you option (e.g. 1) for {dbName}: ");
 
                     var userInput = Console.ReadLine();
 
                     if (userInput != null)
                     {
                         response = int.Parse(userInput.ToString());
-                        if (response == 0)
-                        {
-                            throw new Exception();
-                        }
                     }
 
-                    else
-                    {
-                        throw new Exception();
-                    }
-
-                    if (response <= dbNames?.Count)
+                    if (response <= dbNames?.Count && response != 0)
                     {
                         break;
                     }
@@ -201,8 +184,6 @@ namespace Backup
         [ExcludeFromCodeCoverage]
         public void Redirector(string dbName, string option)
         {
-            ServiceResponse<bool> service = new();
-
             switch (dbName)
             {
                 case "MySql":
@@ -217,6 +198,7 @@ namespace Backup
 
                     MssqlService mssqlservice = new(configuration);
 
+                    Console.WriteLine("");
                     Console.WriteLine($"Testing Connnection to {dbName}");
                     var isConnected = mssqlservice.TestConnection();
 
@@ -231,6 +213,10 @@ namespace Backup
                         Console.WriteLine(isConnected.message);
                     }
 
+                break;
+
+                default:
+                    Console.WriteLine("No database with that name exists");
                 break;
             }
         }
