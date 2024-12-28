@@ -4,8 +4,7 @@
 <!-- ![updates](https://img.shields.io/badge/future_updates-no-8D0B41) -->
 
 
-# Database Backup
-
+# Database Backup and Restore console
 This C# console application provides a convenient interface for manually backing up your Microsoft SQL Server databases.
 
 <!-- 
